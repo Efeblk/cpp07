@@ -1,4 +1,4 @@
-NAME		= convert
+NAME		= whatever
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 SOURCE		= main.cpp 

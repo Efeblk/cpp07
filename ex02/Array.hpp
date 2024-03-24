@@ -7,41 +7,53 @@ template <class T>
 class   Array
 {
     private:
-        T *Arr;
-        unsigned int size;
+        T *array;
+        unsigned int len;
     public:
         Array()
         {
-            this->Arr = new T[0];
+            this->array = new T[0];
+            this->len = 0;
         }
         ~Array()
         {
-            delete this->Arr;
+            delete this->array;
         }
         Array(unsigned int n)
         {
-            this->Arr = new T[n];
-            this->size = n;
+            this->array= new T[n];
+            this->len = n;
         }
-        Array(const Array &copy, unsigned int n)
+        Array(const Array &copy)
         {
-            this->Arr = new T[n];
-            for (unsigned int i = 0; i < n; i++)
-                this->Arr[i] = copy.Arr[i];
+            this->len = copy.len;
+            this->array = new T[copy.len];
+            for (unsigned int i = 0; i < this->len; i++)
+                this->array[i] = copy.array[i];
         }
-        Array& operator= (const Array &copy)
-        {
-            this->Arr = new T[this->size];
-            for (int i = 0; i < this->size ; i++)
-                this->Arr[i] = copy.Arr[i];
-            return *this;
-        }
+        Array &operator=(const Array &copy)
+		{
+			if (this != copy)
+			{
+				delete[] this->array;
+				this->len = copy.len;
+				this->array = new T[copy.len];
+				for(unsigned int i = 0; i < this->len; i++)
+				{
+					this->array[i] = copy.array[i];
+				}
+			}
+		}
         T& operator[] (unsigned int index)
         {
-            if(index >= this->size)
+            if(index >= this->len)
                 throw std::out_of_range("Index out of range");
             else
-                return this->Arr[index];
+                return this->array[index];
+        }
+        unsigned int size() const
+        {
+            return this->len;
         }
 };
 
